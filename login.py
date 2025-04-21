@@ -24,17 +24,34 @@ def login_form():
         submitted = st.form_submit_button("Login")
 
         if submitted:
-            # Check if secrets are configured
-            if "correct_username" not in st.secrets or "correct_password" not in st.secrets:
-                st.sidebar.error("Login credentials not configured in secrets.toml.")
-                # --- Debugging: Show what keys *are* present ---
-                st.sidebar.caption(f"Available secret keys: {list(st.secrets.keys())}")
-                # --- End Debugging ---
-            # Validate against secrets
-            elif username == st.secrets["correct_username"] and password == st.secrets["correct_password"]:
-                st.session_state.logged_in = True
-                st.session_state.username = username # Store username for display
-                # st.success("Login successful!") # Success message is often better shown on the main page after rerun
-                st.rerun()  # Rerun the app to reflect the logged-in state
+            # Determine correct username and password based on secrets structure
+            correct_username = None
+            correct_password = None
+
+            # Check for nested structure (like Streamlit Cloud)
+            if "credentials" in st.secrets and \
+               "correct_username" in st.secrets["credentials"] and \
+               "correct_password" in st.secrets["credentials"]:
+                correct_username = st.secrets["credentials"]["correct_username"]
+                correct_password = st.secrets["credentials"]["correct_password"]
+            # Check for flat structure (like local secrets.toml)
+            elif "correct_username" in st.secrets and "correct_password" in st.secrets:
+                correct_username = st.secrets["correct_username"]
+                correct_password = st.secrets["correct_password"]
+
+            # Validate credentials if found
+            if correct_username is not None and correct_password is not None:
+                if username == correct_username and password == correct_password:
+                    st.session_state.logged_in = True
+                    st.session_state.username = username # Store username for display
+                    st.rerun()  # Rerun the app to reflect the logged-in state
+                else:
+                    st.sidebar.error("Incorrect username or password.")
             else:
-                st.sidebar.error("Incorrect username or password.")
+                # Secrets not configured correctly in either structure
+                st.sidebar.error("Login credentials not configured correctly in secrets.")
+                # --- Debugging: Show available keys ---
+                st.sidebar.caption(f"Available secret keys: {list(st.secrets.keys())}")
+                if "credentials" in st.secrets:
+                     st.sidebar.caption(f"Keys under 'credentials': {list(st.secrets['credentials'].keys())}")
+                # --- End Debugging ---
