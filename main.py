@@ -6,7 +6,7 @@ from dashboard import dashboard_page
 from bug_report import bug_report_page # Import the new page function
 
 # --- Configuration ---
-st.set_page_config(page_title="County Cricketer Lovers", layout="wide")
+st.set_page_config(page_title="County Cricketer Stats", layout="wide")
 
 # --- Session State Initialization ---
 if 'logged_in' not in st.session_state:
