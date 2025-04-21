@@ -1,0 +1,8 @@
+.streamlit/secrets.toml
+# Consider adding other common Python/venv ignores as previously suggested
+# for a more robust setup. For example:
+# __pycache__/
+# *.py[cod]
+# venv/
+# .venv/
+# *.log
