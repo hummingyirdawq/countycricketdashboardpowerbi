@@ -4,7 +4,7 @@ import streamlit.components.v1 as components
 # --- Power BI Embed Code ---
 # Using fixed pixel height for iframe, adjust as needed
 PBI_IFRAME = """
-<iframe title="County Cricket Database" width="100%" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiMzA5MzY4NWMtYzUzMy00MTRhLThiYWMtZWI2YTE5Y2ZmYmUxIiwidCI6IjU5YTIyMTkwLTMzZDQtNGM1NC1iM2VlLTc4ZGMzMDhlNzY3YiJ9" frameborder="0" allowFullScreen="true" style="display: block; width: 100%; border: none; min-height: 700px;"></iframe>
+<iframe title="County Cricket Database" width="100%" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiY2VlODVjNjktNjQwMC00MTdmLTg0ZTQtMmMzOTZjOWYzNWUxIiwidCI6IjU5YTIyMTkwLTMzZDQtNGM1NC1iM2VlLTc4ZGMzMDhlNzY3YiJ9" frameborder="0" allowFullScreen="true" style="display: block; width: 100%; border: none; min-height: 700px;"></iframe>
 """
 
 def dashboard_page():
